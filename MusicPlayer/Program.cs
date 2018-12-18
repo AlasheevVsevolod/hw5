@@ -26,7 +26,11 @@ namespace MusicPlayer
 			player.Lock();
 			player.Unlock();
 
+			//player.Playing = false;
+			Console.WriteLine(player.Playing ? "Player is playing": "Player is stopped");
+
 			player.Stop();
+			Console.WriteLine(player.Playing ? "Player is playing" : "Player is stopped");
 
 			Console.ReadLine();
 		}

@@ -14,6 +14,13 @@ namespace MusicPlayer
 		private bool _locked;
 
 		private bool _playing;
+		public bool Playing
+		{
+			get
+			{
+				return _playing;
+			}
+		}
 
 		private int _volume;
 		public int Volume
