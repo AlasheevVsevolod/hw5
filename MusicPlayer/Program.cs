@@ -16,19 +16,16 @@ namespace MusicPlayer
 
 //			TraceInfo(player);
 
-			player.Play();
+			player.Start();
 			player.VolumeUp();
-			Console.WriteLine(player.Volume);
+			player.VolumeDown();
 
 			player.VolumeChange(-300);
-			Console.WriteLine(player.Volume);
-
 			player.VolumeChange(300);
-			Console.WriteLine(player.Volume);
 
-			/*player.Volume = -25;
-			Console.WriteLine(player.Volume);
-			*/
+			player.Lock();
+			player.Unlock();
+
 			player.Stop();
 
 			Console.ReadLine();
@@ -39,14 +36,16 @@ namespace MusicPlayer
 			var artist = new Artist();
 			artist.Name = "Powerwolf";
 			artist.Genre = "Metal";
+			Console.WriteLine($"Artist1 {artist.Name}");
+			Console.WriteLine($"Genre1 {artist.Genre}\n");
 
 			var artist2 = new Artist("Lordi");
-			Console.WriteLine(artist2.Name);
-			Console.WriteLine(artist2.Genre);
+			Console.WriteLine($"Artist2 {artist2.Name}");
+			Console.WriteLine($"Genre2 {artist2.Genre}\n");
 
 			var artist3 = new Artist("Sabaton", "Rock");
-			Console.WriteLine(artist3.Name);
-			Console.WriteLine(artist3.Genre);
+			Console.WriteLine($"Artist3 {artist3.Name}");
+			Console.WriteLine($"Genre3 {artist3.Genre}\n");
 
 			var album = new Album();
 			album.Name = "New Album";
