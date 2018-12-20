@@ -38,13 +38,13 @@ namespace MusicPlayer
 			Console.WriteLine(player.Playing ? "Player is playing" : "Player is stopped\n");
 
 //task6
-			Song newsong = CreateDefaultSong();
+			Song newsong = CreateSong();
 			PrintSongInfo(newsong);
 
-			Song newsong_copy = CreateDefaultSong2();
-			PrintSongInfo(newsong_copy);
+//			Song newsong_copy = CreateDefaultSong2();
+//			PrintSongInfo(newsong_copy);
 
-			Song newsong2 = CreateNamedSong("Sahti");
+			Song newsong2 = CreateSong("Sahti");
 			PrintSongInfo(newsong2);
 
 			Song newsong3 = CreateSong("Uptown Funk", 123, "Bruno Mars", "Dancing", "Funk", 2014);
@@ -68,7 +68,7 @@ namespace MusicPlayer
 			Console.WriteLine("\nTask 8");
 
 			Console.WriteLine("One song");
-			newsong = CreateDefaultSong();
+			newsong = CreateSong();
 			Console.WriteLine($"Song duration {newsong.Duration}\n");
 			player.AddSongs(out NumOfSongs, newsong);			
 			for(int i = 0; i < NumOfSongs; i++)
@@ -79,9 +79,9 @@ namespace MusicPlayer
 			}
 
 			Console.WriteLine("Two songs");
-			newsong = CreateDefaultSong();
+			newsong = CreateSong();
 			Console.WriteLine($"Song duration {newsong.Duration}\n");
-			newsong2 = CreateDefaultSong();
+			newsong2 = CreateSong();
 			Console.WriteLine($"Song duration {newsong2.Duration}\n");
 
 			player.AddSongs(out NumOfSongs, newsong, newsong2);			
@@ -94,7 +94,7 @@ namespace MusicPlayer
 			Song[] SongsArr = new Song[5];
 			for(int i = 0; i < SongsArr.Length; i++)
 			{
-				SongsArr[i] = CreateDefaultSong();
+				SongsArr[i] = CreateSong();
 				Console.WriteLine($"Song duration {SongsArr[i].Duration}");
 			}
 			Console.WriteLine();
@@ -110,6 +110,11 @@ namespace MusicPlayer
 			Console.ReadLine();
 		}
 
+
+
+
+
+
 		public static void PrintSongInfo(Song CurrentSong)
 		{
 			Console.WriteLine($"Album name {CurrentSong.Album.Name}");
@@ -119,6 +124,9 @@ namespace MusicPlayer
 			Console.WriteLine($"Song duration {CurrentSong.Duration}");
 			Console.WriteLine($"Song name {CurrentSong.Name}\n");
 		}
+
+
+
 
 		public static Song[] GetSongsData()
 		{
@@ -151,6 +159,10 @@ namespace MusicPlayer
 			return new Song[] {song};
 		}
 
+
+
+
+
 		public static void TraceInfo(Player player)
 		{
 			Console.WriteLine(player.Songs[0].Artist.Name);
@@ -159,7 +171,12 @@ namespace MusicPlayer
 			Console.WriteLine(player.Volume);
 		}
 		
-		public static Song CreateDefaultSong()
+
+
+
+
+
+		public static Song CreateSong()
 		{
 			Random rand = new Random();
 
@@ -202,34 +219,41 @@ namespace MusicPlayer
 			return DefaultSong;
 		}
 
+
+
+
+/*
 //А если рефакторить, то можно так забомбить
 		public static Song CreateDefaultSong2()
 		{
-/*
+
 //параметры для примера указал
-			Song DefaultSong = new Song()
-			{
-				DefDuration = 115,
-				DefAlbum = new Album
-				{
-					Name = "qwe",
-					Year = 2010
-				},
-				DefArtist = new Artist
-				{
-					Genre = "asd",
-					Name = "zxc"
-				},
-				DefName = "qaz"
-			};
-*/
+//			Song DefaultSong = new Song()
+//			{
+//				DefDuration = 115,
+//				DefAlbum = new Album
+//				{
+//					Name = "qwe",
+//					Year = 2010
+//				},
+//				DefArtist = new Artist
+//				{
+//					Genre = "asd",
+//					Name = "zxc"
+//				},
+//				DefName = "qaz"
+//			};
+
 			return CreateSong("qaz", 115, "zxc", "asd", "qwe", 2010);
 //короче вызвать последний метод со некоторыми рандомными(или по умолчанию) параметрами
 // что смотрится гораздо приятнее
 		}
+*/
 
 
-		public static Song CreateNamedSong(string SongName)
+
+
+		public static Song CreateSong(string SongName)
 		{
 			Random rand = new Random();
 
@@ -254,6 +278,11 @@ namespace MusicPlayer
 //			return CreateSong(SongName, 115, "zxc", "asd", "qwe", 2010);
 		}
 
+
+
+
+
+
 		public static Song CreateSong(string SongName, int SongDuration, string ArtistName, string ArtistGenre, string AlbumName, int AlbumYear)
 		{
 			Song ExplicitSong = new Song()
@@ -274,6 +303,10 @@ namespace MusicPlayer
 
 			return ExplicitSong;
 		}
+
+
+
+
 
 
 //		public static int TotalSongsDuration(out int TheShortestSong, ref int TheLongestSong,
@@ -306,7 +339,7 @@ namespace MusicPlayer
 
 			for(int i = 0; i < Songs.Length; i++)
 			{
-				Songs[i] = CreateDefaultSong();
+				Songs[i] = CreateSong();
 //				Albums[i] = Songs[i].Album;
 //				Artists[i] = Songs[i].Artist;
 
