@@ -8,8 +8,8 @@ namespace MusicPlayer
 {
 	public class Song
 	{
-		public int Duration;
 		public string Name;
+		public int Duration;
 		public Artist Artist;
 		public Album Album;
 	}

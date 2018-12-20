@@ -11,6 +11,7 @@ namespace MusicPlayer
 		public string Genre;
 		public string Name;
 
+//task5
 		public Artist()
 		{
 			this.Name = "Default artist";
