@@ -48,6 +48,18 @@ namespace MusicPlayer
 		}
 
 		public Song[] Songs;
+		public Song[] NewSongList = new Song[5];
+		public Song[] AddSongs(out int NumOfSongs, params Song[] NewSongs)
+		{
+			NumOfSongs = 0;
+			foreach(Song NewSong in NewSongs)
+			{
+				NewSongList[NumOfSongs++] = NewSong;
+			}
+			return NewSongList;
+		}
+		
+
 
 		public void VolumeUp()
 		{

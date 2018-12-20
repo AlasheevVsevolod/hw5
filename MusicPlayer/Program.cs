@@ -39,36 +39,17 @@ namespace MusicPlayer
 
 //task6
 			Song newsong = CreateDefaultSong();
-			Console.WriteLine($"Album name {newsong.Album.Name}");
-			Console.WriteLine($"Album year {newsong.Album.Year}");
-			Console.WriteLine($"Artist genre {newsong.Artist.Genre}");
-			Console.WriteLine($"Artist name {newsong.Artist.Name}");
-			Console.WriteLine($"Song duration {newsong.Duration}");
-			Console.WriteLine($"Song name {newsong.Name}\n");
+			PrintSongInfo(newsong);
 
 			Song newsong_copy = CreateDefaultSong2();
-			Console.WriteLine($"Album name {newsong_copy.Album.Name}");
-			Console.WriteLine($"Album year {newsong_copy.Album.Year}");
-			Console.WriteLine($"Artist genre {newsong_copy.Artist.Genre}");
-			Console.WriteLine($"Artist name {newsong_copy.Artist.Name}");
-			Console.WriteLine($"Song duration {newsong_copy.Duration}");
-			Console.WriteLine($"Song name {newsong_copy.Name}\n");
-			
+			PrintSongInfo(newsong_copy);
+
 			Song newsong2 = CreateNamedSong("Sahti");
-			Console.WriteLine($"Album name {newsong2.Album.Name}");
-			Console.WriteLine($"Album year {newsong2.Album.Year}");
-			Console.WriteLine($"Artist genre {newsong2.Artist.Genre}");
-			Console.WriteLine($"Artist name {newsong2.Artist.Name}");
-			Console.WriteLine($"Song duration {newsong2.Duration}");
-			Console.WriteLine($"Song name {newsong2.Name}\n");
+			PrintSongInfo(newsong2);
 
 			Song newsong3 = CreateSong("Uptown Funk", 123, "Bruno Mars", "Dancing", "Funk", 2014);
-			Console.WriteLine($"Album name {newsong3.Album.Name}");
-			Console.WriteLine($"Album year {newsong3.Album.Year}");
-			Console.WriteLine($"Artist genre {newsong3.Artist.Genre}");
-			Console.WriteLine($"Artist name {newsong3.Artist.Name}");
-			Console.WriteLine($"Song duration {newsong3.Duration}");
-			Console.WriteLine($"Song name {newsong3.Name}\n");
+			PrintSongInfo(newsong3);
+
 
 //task7
 			int TheShortestSong, TheLongestSong = 0, RandomDuration;
@@ -81,10 +62,62 @@ namespace MusicPlayer
 			Console.WriteLine($"Самая короткая песня длится {TheShortestSong}с");
 			Console.WriteLine($"Самая длинная песня длится {TheLongestSong}с");
 
+//task8
+			int NumOfSongs;
+
+			Console.WriteLine("\nTask 8");
+
+			Console.WriteLine("One song");
+			newsong = CreateDefaultSong();
+			Console.WriteLine($"Song duration {newsong.Duration}\n");
+			player.AddSongs(out NumOfSongs, newsong);			
+			for(int i = 0; i < NumOfSongs; i++)
+			{
+//Здесь вывожу длительность сгенерированных песен, чтобы сравнить с теми, которые
+// вернутся после player.AddSongs
+				PrintSongInfo(player.NewSongList[i]);
+			}
+
+			Console.WriteLine("Two songs");
+			newsong = CreateDefaultSong();
+			Console.WriteLine($"Song duration {newsong.Duration}\n");
+			newsong2 = CreateDefaultSong();
+			Console.WriteLine($"Song duration {newsong2.Duration}\n");
+
+			player.AddSongs(out NumOfSongs, newsong, newsong2);			
+			for(int i = 0; i < NumOfSongs; i++)
+			{
+				PrintSongInfo(player.NewSongList[i]);
+			}
+
+			Console.WriteLine("Array of songs");
+			Song[] SongsArr = new Song[5];
+			for(int i = 0; i < SongsArr.Length; i++)
+			{
+				SongsArr[i] = CreateDefaultSong();
+				Console.WriteLine($"Song duration {SongsArr[i].Duration}");
+			}
+			Console.WriteLine();
+
+			player.AddSongs(out NumOfSongs, SongsArr);			
+			for(int i = 0; i < NumOfSongs; i++)
+			{
+				PrintSongInfo(player.NewSongList[i]);
+			}
 
 
 
 			Console.ReadLine();
+		}
+
+		public static void PrintSongInfo(Song CurrentSong)
+		{
+			Console.WriteLine($"Album name {CurrentSong.Album.Name}");
+			Console.WriteLine($"Album year {CurrentSong.Album.Year}");
+			Console.WriteLine($"Artist genre {CurrentSong.Artist.Genre}");
+			Console.WriteLine($"Artist name {CurrentSong.Artist.Name}");
+			Console.WriteLine($"Song duration {CurrentSong.Duration}");
+			Console.WriteLine($"Song name {CurrentSong.Name}\n");
 		}
 
 		public static Song[] GetSongsData()
@@ -161,6 +194,10 @@ namespace MusicPlayer
 				},
 				Name = Convert.ToString((char)rand.Next((int)'A', (int)'Z'))
 			};
+
+//похоже, что Random генерирует числа как-то опираясь на таймеры, т.к. без задержки
+// бывало, что два цикла генерировали одинаковые значения
+				System.Threading.Thread.Sleep(10);
 
 			return DefaultSong;
 		}
@@ -274,12 +311,7 @@ namespace MusicPlayer
 //				Artists[i] = Songs[i].Artist;
 
 				Console.WriteLine($"i = {i}");
-				Console.WriteLine($"Album name {Songs[i].Album.Name}");
-				Console.WriteLine($"Album year {Songs[i].Album.Year}");
-				Console.WriteLine($"Artist genre {Songs[i].Artist.Genre}");
-				Console.WriteLine($"Artist name {Songs[i].Artist.Name}");
-				Console.WriteLine($"Song duration {Songs[i].Duration}");
-				Console.WriteLine($"Song name {Songs[i].Name}\n");
+				PrintSongInfo(Songs[i]);
 
 				TotalDuration += Songs[i].Duration;
 				if(Songs[i].Duration < TheShortestSong)
@@ -291,20 +323,12 @@ namespace MusicPlayer
 				{
 					TheLongestSong = Songs[i].Duration;
 				}
-//похоже, что Random генерирует числа как-то опираясь на таймеры, т.к. без задержки
-// бывало, что два цикла генерировали одинаковые значения
-				System.Threading.Thread.Sleep(10);
 			}
 
 			Songs[NumberOfShortestSong].Name = ShortestSongName;
 			Console.WriteLine($"Самая коротакя песня - №{NumberOfShortestSong}");
 			Console.WriteLine($"i = {NumberOfShortestSong}");
-			Console.WriteLine($"Album name {Songs[NumberOfShortestSong].Album.Name}");
-			Console.WriteLine($"Album year {Songs[NumberOfShortestSong].Album.Year}");
-			Console.WriteLine($"Artist genre {Songs[NumberOfShortestSong].Artist.Genre}");
-			Console.WriteLine($"Artist name {Songs[NumberOfShortestSong].Artist.Name}");
-			Console.WriteLine($"Song duration {Songs[NumberOfShortestSong].Duration}");
-			Console.WriteLine($"Song name {Songs[NumberOfShortestSong].Name}\n");
+			PrintSongInfo(Songs[NumberOfShortestSong]);
 
 //			return TotalDuration;
 		}
