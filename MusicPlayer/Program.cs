@@ -70,6 +70,20 @@ namespace MusicPlayer
 			Console.WriteLine($"Song duration {newsong3.Duration}");
 			Console.WriteLine($"Song name {newsong3.Name}\n");
 
+//task7
+			int TheShortestSong, TheLongestSong = 0, RandomDuration;
+			string ShortestSongName = "Shortest song ever";
+//			RandomDuration = TotalSongsDuration(out TheShortestSong, ref TheLongestSong, ref ShortestSongName);
+			TotalSongsDuration(out TheShortestSong, ref TheLongestSong, ref ShortestSongName, out RandomDuration);
+
+			Console.Write("Длина пяти случайно сгенерированных песен = ");
+			Console.WriteLine($"{RandomDuration}с или {RandomDuration / 60}м {RandomDuration % 60}с");
+			Console.WriteLine($"Самая короткая песня длится {TheShortestSong}с");
+			Console.WriteLine($"Самая длинная песня длится {TheLongestSong}с");
+
+
+
+
 			Console.ReadLine();
 		}
 
@@ -222,6 +236,77 @@ namespace MusicPlayer
 			};
 
 			return ExplicitSong;
+		}
+
+
+//		public static int TotalSongsDuration(out int TheShortestSong, ref int TheLongestSong,
+//			ref string ShortestSongName)
+		public static void TotalSongsDuration(out int TheShortestSong, ref int TheLongestSong,
+			ref string ShortestSongName, out int TotalDuration)
+		{
+//Если я всё правильно понимаю, что у нас CreateDefaultSong возвращает объект типа Song
+// который уже имеет в себе объекты Album и Artist. Так что сзаново создавать и заполнять
+// эти массивы не вижу смысла
+			Song[] Songs = new Song[5];
+//			Album[] Albums = new Album[5];
+//			Artist[] Artists = new Artist[5];
+
+//			int TotalDuration = 0, NumberOfShortestSong = 0;
+			int NumberOfShortestSong = 0;
+			TotalDuration = 0;
+
+
+//По общему смыслу, я так понял, ref и out действуют похожим образом - передают переменную
+// в вызываемый метод. Разница в том, что, используя ref, переменная уже должна иметь какое-либо
+// значение, которое(именно значение переменной, не копия) может изменяться в методе.
+// А при модификаторе out переменная в методе считается неинициализированной, но ей обязательно
+// должно быть присвоено значение перед выходом.
+// Не уверен, что это правильно, но я бы использовал ref именно для тех случаев, когда
+// передаваемое значение может  меняться, а out для того, чтобы кроме переменной в return
+// возвращать из метода ещё несколько значений
+
+			TheShortestSong = 100000;
+
+			for(int i = 0; i < Songs.Length; i++)
+			{
+				Songs[i] = CreateDefaultSong();
+//				Albums[i] = Songs[i].Album;
+//				Artists[i] = Songs[i].Artist;
+
+				Console.WriteLine($"i = {i}");
+				Console.WriteLine($"Album name {Songs[i].Album.Name}");
+				Console.WriteLine($"Album year {Songs[i].Album.Year}");
+				Console.WriteLine($"Artist genre {Songs[i].Artist.Genre}");
+				Console.WriteLine($"Artist name {Songs[i].Artist.Name}");
+				Console.WriteLine($"Song duration {Songs[i].Duration}");
+				Console.WriteLine($"Song name {Songs[i].Name}\n");
+
+				TotalDuration += Songs[i].Duration;
+				if(Songs[i].Duration < TheShortestSong)
+				{
+					TheShortestSong = Songs[i].Duration;
+					NumberOfShortestSong = i;
+				}
+				if(Songs[i].Duration > TheLongestSong)
+				{
+					TheLongestSong = Songs[i].Duration;
+				}
+//похоже, что Random генерирует числа как-то опираясь на таймеры, т.к. без задержки
+// бывало, что два цикла генерировали одинаковые значения
+				System.Threading.Thread.Sleep(10);
+			}
+
+			Songs[NumberOfShortestSong].Name = ShortestSongName;
+			Console.WriteLine($"Самая коротакя песня - №{NumberOfShortestSong}");
+			Console.WriteLine($"i = {NumberOfShortestSong}");
+			Console.WriteLine($"Album name {Songs[NumberOfShortestSong].Album.Name}");
+			Console.WriteLine($"Album year {Songs[NumberOfShortestSong].Album.Year}");
+			Console.WriteLine($"Artist genre {Songs[NumberOfShortestSong].Artist.Genre}");
+			Console.WriteLine($"Artist name {Songs[NumberOfShortestSong].Artist.Name}");
+			Console.WriteLine($"Song duration {Songs[NumberOfShortestSong].Duration}");
+			Console.WriteLine($"Song name {Songs[NumberOfShortestSong].Name}\n");
+
+//			return TotalDuration;
 		}
 	}
 }
