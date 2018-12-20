@@ -105,6 +105,26 @@ namespace MusicPlayer
 				PrintSongInfo(player.NewSongList[i]);
 			}
 
+//task10
+			Artist NewArtist = AddArtist();
+			Console.WriteLine($"Без параметров. Артист. {NewArtist.Name}");
+
+			NewArtist = AddArtist("Enjoykin");
+			Console.WriteLine($"С параметром. Артист. {NewArtist.Name}");
+
+			Album NewAlbum = AddAlbum();
+			Console.WriteLine($"Без параметров. Альбом. {NewAlbum.Name}, {NewAlbum.Year}");
+
+			NewAlbum = AddAlbum("Loved to Death", 2018);
+			Console.WriteLine($"С параметрами. Альбом. {NewAlbum.Name}, {NewAlbum.Year}");
+
+			NewAlbum = AddAlbum(AlbumYear: 2018, AlbumName: "Loved to Death");
+			Console.WriteLine($"Параметры перемешаны. Альбом. {NewAlbum.Name}, {NewAlbum.Year}");
+			
+			NewAlbum = AddAlbum(AlbumYear: 2018);
+			Console.WriteLine($"Один параметр. Альбом. {NewAlbum.Name}, {NewAlbum.Year}");
+
+
 
 
 			Console.ReadLine();
@@ -364,6 +384,36 @@ namespace MusicPlayer
 			PrintSongInfo(Songs[NumberOfShortestSong]);
 
 //			return TotalDuration;
+		}
+
+
+
+
+
+		public static Artist AddArtist(string ArtistName = "Unknown artist")
+//		public static Artist AddArtist(string ArtistName = default(string))
+		{
+			Artist NewArtist = new Artist()
+			{
+				Name = ArtistName,
+				Genre = "Default genre"
+			};
+
+			return NewArtist;
+		}
+
+
+
+		public static Album AddAlbum(string AlbumName = "Unknown album", int AlbumYear = 0)
+//		public static Album AddAlbum(string AlbumName = default(string), int Album year = default(int))
+		{
+			Album NewAlbum = new Album()
+			{
+				Name = AlbumName,
+				Year = AlbumYear
+			};
+
+			return NewAlbum;
 		}
 	}
 }
