@@ -63,40 +63,75 @@ namespace MusicPlayer
 
 		public void VolumeUp()
 		{
-			Volume++;
-			Console.WriteLine($"Громкость увеличена. {_volume}%");
-		}
-
-		public void VolumeDown()
-		{
-			Volume--;
-			Console.WriteLine($"Громкость уменьшена. {_volume}%");
-		}
-
-		public void VolumeChange( int step)
-		{
-			Volume += step;
-			if (step > 0)
+			if(!_locked)
 			{
+				Volume++;
 				Console.WriteLine($"Громкость увеличена. {_volume}%");
 			}
 			else
 			{
+				BlockVolumeChange();
+			}
+		}
+
+		public void VolumeDown()
+		{
+			if(!_locked)
+			{
+				Volume--;
 				Console.WriteLine($"Громкость уменьшена. {_volume}%");
+			}
+			else
+			{
+				BlockVolumeChange();
+			}
+		}
+
+		public void VolumeChange( int step)
+		{
+			if(!_locked)
+			{
+				Volume += step;
+				if (step > 0)
+				{
+					Console.WriteLine($"Громкость увеличена. {_volume}%");
+				}
+				else
+				{
+					Console.WriteLine($"Громкость уменьшена. {_volume}%");
+				}
+			}
+			else
+			{
+				BlockVolumeChange();
 			}
 		}
 
 		public bool Start()
 		{
-			_playing = true;
-			Console.WriteLine($"Воспроизведение: {Songs[0].Name}");
+			if(!_locked)
+			{
+				_playing = true;
+				Console.WriteLine($"Воспроизведение: {Songs[0].Name}");
+			}
+			else
+			{
+				Console.WriteLine("Нельзя запустить плеер. Он заблокирован");
+			}
 			return _playing;
 		}
 
 		public bool Stop()
 		{
-			_playing = false;
-			Console.WriteLine("Пауза");
+			if(!_locked)
+			{
+				_playing = false;
+				Console.WriteLine("Плеер остановлен");
+			}
+			else
+			{
+				Console.WriteLine("Нельзя запустить плеер. Он заблокирован");
+			}
 			return _playing;
 		}
 
@@ -110,6 +145,11 @@ namespace MusicPlayer
 		{
 			_locked = false;
 			Console.WriteLine("Плеер разблокирован");
+		}
+
+		private void BlockVolumeChange()
+		{
+			Console.WriteLine("Нельзя изменить громкость. Плеер заблокирован");
 		}
 	}
 }

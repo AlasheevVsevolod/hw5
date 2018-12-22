@@ -21,21 +21,34 @@ namespace MusicPlayer
 
 //task3
 //task4
+			player.Lock();
+
 			player.VolumeUp();
 			player.VolumeDown();
 
 			player.VolumeChange(-300);
 			player.VolumeChange(300);
 
-			player.Lock();
-			player.Unlock();
-
 			player.Start();
-			//player.Playing = false;
 			Console.WriteLine(player.Playing ? "Player is playing": "Player is stopped");
 
 			player.Stop();
 			Console.WriteLine(player.Playing ? "Player is playing" : "Player is stopped\n");
+
+			player.Unlock();
+			
+			player.VolumeUp();
+			player.VolumeDown();
+
+			player.VolumeChange(-300);
+			player.VolumeChange(300);
+
+			player.Start();
+			Console.WriteLine(player.Playing ? "Player is playing": "Player is stopped");
+
+			player.Stop();
+			Console.WriteLine(player.Playing ? "Player is playing" : "Player is stopped\n");
+
 
 //task6
 			Song newsong = CreateSong();
