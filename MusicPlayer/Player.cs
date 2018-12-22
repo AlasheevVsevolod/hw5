@@ -130,7 +130,7 @@ namespace MusicPlayer
 			}
 			else
 			{
-				Console.WriteLine("Нельзя запустить плеер. Он заблокирован");
+				Console.WriteLine("Нельзя остановить плеер. Он заблокирован");
 			}
 			return _playing;
 		}
