@@ -11,6 +11,17 @@ namespace MusicPlayer
 		const int MIN_VOLUME = 0;
 		const int MAX_VOLUME = 100;
 
+		private bool _locked;
+
+		private bool _playing;
+		public bool Playing
+		{
+			get
+			{
+				return _playing;
+			}
+		}
+
 		private int _volume;
 		public int Volume
 		{
@@ -37,30 +48,108 @@ namespace MusicPlayer
 		}
 
 		public Song[] Songs;
+		public Song[] NewSongList = new Song[5];
+		public Song[] AddSongs(out int NumOfSongs, params Song[] NewSongs)
+		{
+			NumOfSongs = 0;
+			foreach(Song NewSong in NewSongs)
+			{
+				NewSongList[NumOfSongs++] = NewSong;
+			}
+			return NewSongList;
+		}
+		
+
 
 		public void VolumeUp()
 		{
-			Volume++;
+			if(!_locked)
+			{
+				Volume++;
+				Console.WriteLine($"Громкость увеличена. {_volume}%");
+			}
+			else
+			{
+				BlockVolumeChange();
+			}
 		}
 
 		public void VolumeDown()
 		{
-			Volume--;
+			if(!_locked)
+			{
+				Volume--;
+				Console.WriteLine($"Громкость уменьшена. {_volume}%");
+			}
+			else
+			{
+				BlockVolumeChange();
+			}
 		}
 
 		public void VolumeChange( int step)
 		{
-			Volume += step;
+			if(!_locked)
+			{
+				Volume += step;
+				if (step > 0)
+				{
+					Console.WriteLine($"Громкость увеличена. {_volume}%");
+				}
+				else
+				{
+					Console.WriteLine($"Громкость уменьшена. {_volume}%");
+				}
+			}
+			else
+			{
+				BlockVolumeChange();
+			}
 		}
 
-		public void Play()
+		public bool Start()
 		{
-			Console.WriteLine($"Player is playing: {Songs[0].Name}");
+			if(!_locked)
+			{
+				_playing = true;
+				Console.WriteLine($"Воспроизведение: {Songs[0].Name}");
+			}
+			else
+			{
+				Console.WriteLine("Нельзя запустить плеер. Он заблокирован");
+			}
+			return _playing;
 		}
 
-		public void Stop()
+		public bool Stop()
 		{
-			Console.WriteLine("Player has stopped");
+			if(!_locked)
+			{
+				_playing = false;
+				Console.WriteLine("Плеер остановлен");
+			}
+			else
+			{
+				Console.WriteLine("Нельзя остановить плеер. Он заблокирован");
+			}
+			return _playing;
+		}
+
+		public void Lock()
+		{
+			_locked = true;
+			Console.WriteLine("Плеер заблокирован");
+		}
+
+		public void Unlock()
+		{
+			_locked = false;
+			Console.WriteLine("Плеер разблокирован");
+		}
+
+		private void BlockVolumeChange()
+		{
+			Console.WriteLine("Нельзя изменить громкость. Плеер заблокирован");
 		}
 	}
 }
