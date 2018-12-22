@@ -109,7 +109,7 @@ namespace MusicPlayer
 			Artist NewArtist = AddArtist();
 			Console.WriteLine($"Без параметров. Артист. {NewArtist.Name}");
 
-			NewArtist = AddArtist("Enjoykin");
+			NewArtist = AddArtist("Dance With The Dead");
 			Console.WriteLine($"С параметром. Артист. {NewArtist.Name}");
 
 			Album NewAlbum = AddAlbum();
@@ -405,7 +405,9 @@ namespace MusicPlayer
 
 
 		public static Album AddAlbum(string AlbumName = "Unknown album", int AlbumYear = 0)
-//		public static Album AddAlbum(string AlbumName = default(string), int Album year = default(int))
+//		public static Album AddAlbum(string AlbumName = default(string), int AlbumYear = default(int))
+//Во втором случае AlbumName присваивается ничего(символ канца строки?),
+// а AlbumYear, как и в первом случае, 0
 		{
 			Album NewAlbum = new Album()
 			{
